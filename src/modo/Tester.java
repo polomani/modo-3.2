@@ -1,5 +1,6 @@
 package modo;
 
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Tester {
@@ -26,6 +27,7 @@ public class Tester {
 		createProjection(x, c, o);
 		showProjection();
 		
+		//працює неправильно
 		createStretching();
 		showStretching();
 	}
@@ -44,8 +46,8 @@ public class Tester {
 	}
 	
 	private static void showProjection(){
-		for(int i = Z.length-1; i >=0; --i){
-			for(int j = 0; j < Z[i].length; ++j){
+		for(int i = Z[0].length-1; i >= 0 ; --i){
+			for(int j = 0; j < Z.length; ++j){
 				System.out.print(Zproj[j][i]+" ");
 			}
 			System.out.println();
@@ -55,8 +57,8 @@ public class Tester {
 	private static void showStretching() {
 		for(int i = 0; i<pathCount; ++i){
 			System.out.println("omega"+i+":");
-			for(int j = Zstretch.length-1; j >=0; --j){
-				for(int k = 0; k < Zstretch[j].length; ++k){
+			for(int j = Zstretch[0].length-1; j >=0; --j){
+				for(int k = 0; k < Zstretch.length; ++k){
 					System.out.print(Zstretch[k][j][i]+" ");
 				}
 				System.out.println();
@@ -87,6 +89,9 @@ public class Tester {
 			}
 		}
 	
+		
+		//отут повна хрінь
+		//треба повністю переписати
 		for(int i=0; i<Zproj.length; ++i){
 			int counter = 1;
 			for(int j=0; j<Zproj[i].length; ++j){
