@@ -27,7 +27,6 @@ public class Tester {
 		createProjection(x, c, o);
 		showProjection();
 		
-		//працює неправильно
 		createStretching();
 		showStretching();
 	}
@@ -56,7 +55,7 @@ public class Tester {
 	
 	private static void showStretching() {
 		for(int i = 0; i<pathCount; ++i){
-			System.out.println("omega"+i+":");
+			System.out.println("omega"+(i+1)+":");
 			for(int j = Zstretch[0].length-1; j >=0; --j){
 				for(int k = 0; k < Zstretch.length; ++k){
 					System.out.print(Zstretch[k][j][i]+" ");
@@ -81,30 +80,31 @@ public class Tester {
 		System.out.println("Шляхів:"+pathCount);
 		
 		Zstretch = new int[Zproj.length][Zproj[0].length][pathCount];
-		int[] numberOfPoints = new int[Zproj.length];
 		
-		for(int i=0; i<Zproj.length; ++i){
-			for(int j=0; j< Zproj[i].length; ++j){
-				numberOfPoints[i] += Zproj[i][j];
-			}
-		}
+		buildStretch(0, "");
+	}
 	
-		
-		//отут повна хрінь
-		//треба повністю переписати
-		for(int i=0; i<Zproj.length; ++i){
-			int counter = 1;
-			for(int j=0; j<Zproj[i].length; ++j){
-				if(Zproj[i][j]==1){
-					for(int k=(pathCount/numberOfPoints[i])*(counter-1); k<(pathCount/numberOfPoints[i])*counter; ++k){
-						Zstretch[i][j][k] = Zproj[i][j];
-					}
-					counter++;
-				}
+	
+	//this is recursion babe
+	private static void buildStretch (int i, String s) {
+		for (int j = 0; j < Zproj[i].length; j++) {
+			if (Zproj[i][j]==1) {
+				if (i<Zproj.length-1)
+					buildStretch(i+1, s+j);
+				else
+					fillStretch(s+j);
 			}
 		}
 	}
 	
+	private static void fillStretch (String s) {
+		for (int i = 0; i < Zproj.length; ++i) {
+			Zstretch[i][Character.getNumericValue(s.charAt(i))][filledPathes]=1;
+		}
+		filledPathes++;
+	}
+	
+	private static int filledPathes = 0; 
 	private static int Z[][][], Zproj[][], Zstretch[][][], pathCount = 1;
 
 }
